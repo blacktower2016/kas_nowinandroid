@@ -18,22 +18,92 @@ package com.google.samples.apps.nowinandroid.ui.homeworks.homework14
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.google.samples.apps.nowinandroid.MainActivity
+import com.google.samples.apps.nowinandroid.ui.homeworks.homework14.screens.MainScreen
+import com.google.samples.apps.nowinandroid.ui.homeworks.homework15.screens.SearchScreen
 import com.kaspersky.components.composesupport.config.withComposeSupport
 import com.kaspersky.kaspresso.kaspresso.Kaspresso
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
+import io.github.kakaocup.kakao.common.utilities.getResourceString
 import org.junit.Rule
 import org.junit.Test
+import com.google.samples.apps.nowinandroid.feature.foryou.R as foryouR
+import com.google.samples.apps.nowinandroid.feature.search.R as searchR
 
-class MainScreenTest: TestCase(Kaspresso.Builder.withComposeSupport()) {
+class MainScreenTest : TestCase(Kaspresso.Builder.withComposeSupport()) {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
+    val mainScreen = MainScreen(composeTestRule)
+
     @Test
     fun testMainScreen() {
-        MainScreen(composeTestRule).perform {
-            doneButton.assertIsDisplayed()
-            doneButton.assertTextContains("Done")
+        run("") {
+            with(mainScreen) {
+                step("Check Done button is displayed") {
+                    perform {
+                        doneButton.assertIsDisplayed()
+                        doneButton.assertTextContains("Done")
+                    }
+                }
+                step("Check top bar") {
+                    step("Check search icon is displayed") {
+                        topBarSearchIcon.perform {
+                            assertIsDisplayed()
+                        }
+                    }
+                    step("Check three dost button is displayed") {
+                        topBarThreeDots.perform {
+                            assertIsDisplayed()
+                        }
+                    }
+                    step("Check top bas title") {
+                        topBarTitle.perform {
+                            assertIsDisplayed()
+                            assertTextEquals("Now in Android")
+                        }
+                    }
+                }
+
+                step("Check title") {
+                    mainTitle.perform {
+                        assertIsDisplayed()
+                        assertTextEquals(getResourceString(foryouR.string.feature_foryou_onboarding_guidance_title))
+                    }
+                }
+
+                step("Check subtitle") {
+                    mainSubTitle.perform {
+                        assertIsDisplayed()
+                        assertTextEquals(getResourceString(foryouR.string.feature_foryou_onboarding_guidance_subtitle))
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun testSearchScreen() {
+        run("Check search screen") {
+            step("Open search screen") {
+                mainScreen.topBarSearchIcon.perform {
+                    assertIsDisplayed()
+                    performClick()
+                }
+            }
+
+            SearchScreen(composeTestRule).perform {
+                step("Check button 'Back' is displayed") {
+                    buttonBack.assertIsDisplayed()
+                }
+                step("Check search field is displayed") {
+                    searchTextField.assertIsDisplayed()
+                }
+                step("Check recent searches") {
+                    recentSearches.assertIsDisplayed()
+                    recentSearches.assertTextEquals(getResourceString(searchR.string.feature_search_recent_searches))
+                }
+            }
         }
     }
 }

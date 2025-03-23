@@ -14,16 +14,36 @@
  * limitations under the License.
  */
 
-package com.google.samples.apps.nowinandroid.ui.homeworks.homework14
+package com.google.samples.apps.nowinandroid.ui.homeworks.homework14.screens
 
 import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import com.kaspersky.components.composesupport.core.KNode
 import io.github.kakaocup.compose.node.element.ComposeScreen
 
-class MainScreen(semanticProvider: SemanticsNodeInteractionsProvider):
+class MainScreen(semanticProvider: SemanticsNodeInteractionsProvider) :
     ComposeScreen<MainScreen>(semanticProvider) {
 
-        val doneButton = KNode(semanticProvider) {
-            hasText("Done")
-        }
+    val doneButton = KNode(semanticProvider) {
+        hasText("Done")
+    }
+
+    val topBarSearchIcon = KNode(semanticProvider) {
+        hasTestTag("searchIcon")
+    }
+
+    val topBarTitle = KNode(semanticProvider) {
+        hasTestTag("topBarText")
+    }
+
+    val topBarThreeDots = KNode(semanticProvider) {
+        hasTestTag("threeDotsAction")
+    }
+
+    val mainTitle = KNode(semanticProvider) {
+        hasTestTag("mainTitleText")
+    }
+
+    val mainSubTitle = KNode(semanticProvider) {
+        hasTestTag("mainSubtitleText")
+    }
 }

@@ -50,9 +50,9 @@ fun NiaTopAppBar(
     onActionClick: () -> Unit = {},
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = stringResource(id = titleRes)) },
+        title = { Text(text = stringResource(id = titleRes), modifier = modifier.testTag("topBarText")) },
         navigationIcon = {
-            IconButton(onClick = onNavigationClick) {
+            IconButton(onClick = onNavigationClick, modifier=modifier.testTag("searchIcon")) {
                 Icon(
                     imageVector = navigationIcon,
                     contentDescription = navigationIconContentDescription,
@@ -61,7 +61,7 @@ fun NiaTopAppBar(
             }
         },
         actions = {
-            IconButton(onClick = onActionClick) {
+            IconButton(onClick = onActionClick, modifier = modifier.testTag("threeDotsAction")) {
                 Icon(
                     imageVector = actionIcon,
                     contentDescription = actionIconContentDescription,

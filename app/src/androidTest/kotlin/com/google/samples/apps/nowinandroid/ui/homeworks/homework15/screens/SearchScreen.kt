@@ -23,15 +23,15 @@ import io.github.kakaocup.compose.node.element.ComposeScreen
 class SearchScreen(semanticProvider: SemanticsNodeInteractionsProvider) :
     ComposeScreen<SearchScreen>(semanticProvider) {
 
-        val recentSearches = KNode(semanticProvider) {
+        val recentSearches = child<KNode> {
             hasTestTag("recentSearchesText")
         }
 
-    val buttonBack = KNode(semanticProvider) {
+    val buttonBack = child<KNode> {
         hasTestTag("buttonBack")
     }
 
-    val searchTextField = KNode(semanticProvider) {
+    val searchTextField = child<KNode> {
         hasTestTag("searchTextField")
     }
 }
